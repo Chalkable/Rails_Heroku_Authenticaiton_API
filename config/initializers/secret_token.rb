@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ChlkLogin::Application.config.secret_key_base = 'b1afeb2725c52f01a1b47934732b7d188cd04a500352a4246633e574cb84bd747b9c44772cb53af1b739459046e08501c8c94112cadf3517b656dc7d3cf72502'
+ChlkLogin::Application.config.secret_key_base = '73f1b088ff7ed061a9dc864579d2e9a32a64286f93cd9892222676a13682b6edf729218793d257f2cd5502ddc14ec7b476a3d2ca490c6e8ecbfe5670bd2f0178'
