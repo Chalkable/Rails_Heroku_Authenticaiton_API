@@ -20,6 +20,8 @@ group :development do
   gem 'rails_layout'
 end
 group :production do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'rails_12factor'
   gem 'pg'
   gem 'unicorn'
