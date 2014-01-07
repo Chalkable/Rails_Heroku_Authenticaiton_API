@@ -41,9 +41,6 @@ class HomeController < ApplicationController
 
       @student = JSON.parse(student_response.to_json)['data']
      # @user = res['displayname'].to_s
-
-
-
       return @student, :error => false
     rescue => e
       return :res => e, :error => true, :stack_trace => e.backtrace
@@ -68,10 +65,10 @@ class HomeController < ApplicationController
     begin
       options =   { :body => {
           :code => oauth_code_from_chalkable,
-          :client_id => 'http://localhost:3000/',
-          :client_secret => '944e320f8a494538b8988f2b305e35c4fc8ed02028694407943a5bf25539798c6d253361ee99465aa81b42d0a002ab5e01f1c27e90c8499aaf6ea89c1b7c4fb1',
+          :client_id => APP_CONFIG['client_id'],
+          :client_secret => APP_CONFIG['client_secret'],
           :scope => 'https://chalkable.com',
-          :redirect_uri => 'http://localhost:3000/',
+          :redirect_uri => APP_CONFIG['client_id'],
           :grant_type => 'authorization_code'
       }}
       oauth_response = HTTParty.post(
@@ -94,7 +91,7 @@ class HomeController < ApplicationController
     begin
       @response = RestClient.get(APP_CONFIG['service_url'], :authorization => "Bearer:" + access_token)
       @user = JSON.parse(@response)['data']
-      res[:is_teacher] = res['rolename'] == 'Teacher'
+      #res[:is_teacher] = res['rolename'] == 'Teacher'
       #@user = res['displayname'].to_s
       return :res => res, :error => false
     rescue => e

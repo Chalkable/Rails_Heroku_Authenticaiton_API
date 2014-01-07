@@ -12,4 +12,3 @@ production:
   scope: https://chalkable.com
   redirect_uri: http://chlk-login.herokuapp.com/
   service_url: https://chalkable.com/User/Me.json
-#testasdf
