@@ -28,6 +28,7 @@ h2. Authenticate:
     # get the student id of the current student's assignment (if viewing it as a teacher in the 'view' mode)
     @student_id = params[:studentid]
 
+    #if teacher is viewing student work, there will be a 'studentid' param. If its there, use it to get that student's info
     if params.has_key?(:studentid)
       get_student_info(@student_id, @access_token)
     end
@@ -71,8 +72,6 @@ h2. Authenticate:
     begin
       @response = RestClient.get(APP_CONFIG['service_url'], :authorization => "Bearer:" + access_token)
       @user = JSON.parse(@response)['data']
-      #res[:is_teacher] = res['rolename'] == 'Teacher'
-      #@user = res['displayname'].to_s
       return :res => res, :error => false
     rescue => e
       return :res => e, :error => true, :stack_trace => e.backtrace
