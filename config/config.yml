@@ -1,13 +1,13 @@
 development:
   acs_url: https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13
-  client_id: heroku_login
+  client_id: http://localhost:3000/
   client_secret: 944e320f8a494538b8988f2b305e35c4fc8ed02028694407943a5bf25539798c6d253361ee99465aa81b42d0a002ab5e01f1c27e90c8499aaf6ea89c1b7c4fb1
   scope: https://chalkable.com
-  redirect_uri: http://goo.gl/vxTmjL
+  redirect_uri: http://localhost:3000/
   service_url: https://chalkable.com/User/Me.json
 production:
   acs_url: https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13
-  client_id: heroku_login
+  client_id: http://chlk-login.herokuapp.com/
   client_secret: 944e320f8a494538b8988f2b305e35c4fc8ed02028694407943a5bf25539798c6d253361ee99465aa81b42d0a002ab5e01f1c27e90c8499aaf6ea89c1b7c4fb1
   scope: https://chalkable.com
   redirect_uri: http://chlk-login.herokuapp.com/
