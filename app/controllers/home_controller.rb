@@ -5,7 +5,8 @@ class HomeController < ApplicationController
     @code = params[:code]
     @show_plus = @mode == 'edit'
 
-    res = get_access_token(APP_CONFIG, @code)
+    #res = get_access_token(APP_CONFIG, @code)
+    res = get_access_token
 
     @acs_token = res[:res]
 
@@ -24,41 +25,42 @@ class HomeController < ApplicationController
 
 
   private
-  def get_access_token(settings, code)
-    unless session[:acs_token].nil?
-      if session[:acs_token][:code] == code
-        return :res => JSON.parse(session[:acs_token][:token]), :error => false
+
+    def get_current_user(access_token)
+      begin
+        resp = RestClient.get("https://chalkable.com/User/Me.json", :authorization => "Bearer:" + access_token)
+        parsed = JSON.parse(resp)['data']
+        parsed[:is_teacher] = parsed['rolename'] == 'Teacher'
+        return :res => parsed, :error => false
+      rescue => e
+        return :res => e, :error => true, :stack_trace => e.backtrace
       end
     end
 
+
+  def get_access_token    # Get the access token
     begin
-      @response = RestClient.post(
-          settings['acs_url'],
-          'client_id' => settings['client_id'],
-          'client_secret' => settings['client_secret'],
-          'scope' => settings['scope'],
-          'redirect_uri' => settings['redirect_uri'],
+      args = {
+          'client_id' => APP_CONFIG['client_id'],
+          'client_secret' => APP_CONFIG['client_secret'],
+          'scope' => "https://chalkable.com",
+          'redirect_uri' => APP_CONFIG['redirect_uri'],
           'grant_type' => 'authorization_code',
-          'code' => code
+          'code' => params[:code]
+      }
+      oauth_response = RestClient.post(
+          "https://chalkable-access-control.accesscontrol.windows.net/v2/OAuth2-13",
+          args
       )
     rescue => e
-      return :res => e, :error => true, :stack_trace => e.backtrace
+      return [400, "Something terrible has happened!"]
     end
-    session[:acs_token] = {:token => @response, :code => code}
-    return :res => JSON.parse(@response), :error => false
-    #return :res => "", :error => false
-  end
-
-  def get_current_user(access_token)
-    begin
-      @response = RestClient.get(APP_CONFIG['service_url'], :authorization => "Bearer:" + access_token)
-      res = JSON.parse(@response)['data']
-      res[:is_teacher] = res['rolename'] == 'Teacher'
-      return :res => res, :error => false
-    rescue => e
-      return :res => e, :error => true, :stack_trace => e.backtrace
-    end
-    #return :res => {:id => 123, :rolename => 'Teacher', :is_teacher => true ,:displayname => "Ms. Rachel Harari"}, :error => false
+    parsed_response = JSON.parse(oauth_response)
+    asdf
+    access_token = parsed_response['access_token']
+    me = get_current_user(access_token)[:res]
+    me['displayname'].to_s
+    puts me.inspect
   end
 
 
