@@ -2,6 +2,8 @@ h1. Chlk Login
 
 This application demonstrates authentication on the Chalkable platform from a Rails app hosted on Heroku
 
+h5. To use this app go to https://chalkable.com and click "Demo." Find the app "heroku_login" in the App Store. "Install" the app and use it as if you were teacher, student, or administrator. 
+
 h2. Authenticate:
 
 <pre><code>
