@@ -1,2 +1,29 @@
-<h1>Home#index</h1>
-<p>@current_user</p>
+
+<div class="container">
+  <div class="row">
+    <div class="jumbotron">
+      <div class="col-md-2">
+        <img class="img-rounded img-responsive"
+             src="https://chalkable.com/PersonPicture/Read?pictureId=<%= @user["pictureid"] %>&width=<%= @user["picturewidth"] / 2 %>&height=<%= @user["pictureheight"] /2 %>&gender=M">
+      </div>
+      <div class="col-md-4">
+        <blockquote>
+          <h4><%= @user["displayname"] %></h4>
+          <small>
+            <cite><%= @user["roledescription"] %></cite>
+          </small>
+        </blockquote>
+        <p> <i class="glyphicon glyphicon-envelope"></i> <%= @user["email"] %>
+          <br /> <i class="glyphicon glyphicon-globe"></i> School # <%= @user["schoolid"] %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h5>User hash:</h5>
+<small><%= @user %></small>
+
+<% if @student_id %>
+    <%= render 'student_work' %>
+<% end %>

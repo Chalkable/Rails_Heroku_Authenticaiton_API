@@ -10,6 +10,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass', '>= 3.0.0.0'
 gem 'figaro'
 gem "rest-client", "~> 1.6.7"
+gem "httparty", "~> 0.12.0"
+
 
 group :development do
   gem 'sqlite3'

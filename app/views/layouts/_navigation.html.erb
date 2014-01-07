@@ -8,7 +8,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to 'Home', root_path, class: 'navbar-brand' %>
+      <a href="#" class="navbar-brand">Current Application Mode: <%= @mode %></a>
+      <% if @announcement_application_id != 0 %>
+          <a href="#" class="navbar-brand">The announcement application id is: <%= @announcement_application_id %></a>
+      <% end %>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">

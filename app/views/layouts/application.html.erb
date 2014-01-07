@@ -5,7 +5,17 @@
     <title><%= content_for?(:title) ? yield(:title) : "Chlk Login" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Chlk Login" %>">
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "#{APP_CONFIG['scope']}/Scripts/api/chlk-post-message-api.js" %>
+    <%= javascript_include_tag "application" %>
+    <%if @show_plus %>
+        <script type="text/javascript">
+            console.log("show plus");
+            function saveAndClose(){
+                return true;
+            }
+            CHLK_MESSENGER.addYourself(saveAndClose);
+        </script>
+    <% end %>
     <%= csrf_meta_tags %>
   </head>
   <body>
